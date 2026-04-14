@@ -16,9 +16,11 @@ class ProductController extends Controller
 
 
     // Location API Free Cash Data
+    // Cash and latest refresh
     public function products(){
        try{
             $products = [];
+            Cache::forget('product');
             $response = Cache::remember('product', now()->addMinutes(2), function () {
                return Http::get('http://ip-api.com/json/24.48.0.1')->json();
             });
